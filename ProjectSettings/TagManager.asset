@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Vegetables
+  - Plates
+  - Customer Plates
+  - Trashcan
+  - Chopboard
   layers:
   - Default
   - TransparentFX
@@ -13,12 +18,12 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Player
+  - Vegetables
+  - Chopping Board
+  - Plates
+  - TrashCan
+  - Customer PLates
   - 
   - 
   - 
