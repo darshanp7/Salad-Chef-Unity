@@ -2,30 +2,73 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    private Rigidbody2D rb;
-    private float speed = 1000.0f;
+    [SerializeField] [Range(1, 2)] int playerId;
+    public Image[] itemsHud;
+    public GameObject choppingIndicator;
+    public int carryingCapacity = 2;
+    public float choppingTime;
+    public float timeRemaining;
     
-    void Start()
-    {
-         rb = GetComponent<Rigidbody2D>();
-         
-         Debug.Log("Speed " + speed);
-    }
+    internal string hAxis;
+    internal string yAxis;
+    internal string interactAxis;
+    internal string chopAxis;
+    private bool isAxisInUse = false;
     
-    void FixedUpdate()
+    internal Stack<Dictionary<string, Sprite>> itemsCarrying;
+    internal Dictionary<string, Sprite> vegetableAvailable;
+    internal bool canChop;
+    internal bool canPlaceOnPlate;
+    internal bool canPickUpFromPlate;
+    internal bool canPickUpVegetable;
+    internal bool canPickUpSalad;
+    internal bool hasSalad;
+    internal bool canGiveSalad;
+    internal bool canThrowSalad;
+    
+    
+    private void Start()
     {
-        float moveHorizontal = Input.GetAxis ("Horizontal");
-        float moveVertical = Input.GetAxis ("Vertical");
-
-        Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-        rb.velocity = Time.deltaTime * speed * movement;
+        switch (playerId)
+        {
+            case 1:
+                hAxis = "PlayerOneH";
+                yAxis = "PlayerOneV";
+                interactAxis = "PlayerOneInteract";
+                chopAxis = "PlayerOneChop";
+                break;
+            case 2:
+                hAxis = "PlayerTwoH";
+                yAxis = "PlayerTwoV";
+                interactAxis = "PlayerTwoInteract";
+                chopAxis = "PlayerTwoChop";
+                break;
+        }
+        vegetableAvailable = new Dictionary<string, Sprite>();
+        itemsCarrying = new Stack<Dictionary<string, Sprite>>();
     }
 
-    private void OnCollisionEnter2D(Collision2D other)
+    public bool GetAxisDown(string inputAxis)
     {
-        Debug.Log(other.gameObject.name);
+        if (Input.GetAxisRaw(inputAxis) != 0)
+        {
+            if (isAxisInUse == false)
+            {
+                isAxisInUse = true;
+                return isAxisInUse;
+            }
+        }
+
+        if (Input.GetAxisRaw(inputAxis) == 0)
+        {
+            isAxisInUse = false;
+            return isAxisInUse;
+        }
+
+        return false;
     }
 }
