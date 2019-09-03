@@ -2,47 +2,48 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Serialization;
 using Random = System.Random;
 
 public class Salad : MonoBehaviour
 {
-    //salad = a string of concatenated vegetable strings
-    //list of vegetables
-    //String[] createSalad(string inputVegetable)
-    //Salad getRandomSalad() // A Customer Request
-    //bool verifySalad(requestedSalad, servedSalad)
-
-    public string[] vegetableList;
+    public Vegetable[] vegetableList;
+    public List<Sprite> vegetableSpritesist;
+    public int Combinations { get; set; }
 
     [SerializeField] [Range(0, 3)] private int maxCombinations;
 
-        /*string[] CreateSalad(string inputVegetable)
-        {
-            
-        }*/
-
-    string[] requestSalad()
+    public StringBuilder OrderSalad()
     {
-        int[] randomIndices = new int[3];
-        string[] salad = new string[3];
-        for (int i = 0; i < UnityEngine.Random.Range(0, maxCombinations); i++)
+        List<int> randomIndices = new List<int>();
+        StringBuilder salad = new StringBuilder();
+        vegetableSpritesist.Clear();
+        if (Combinations != 0) Combinations = 0;
+        Combinations = UnityEngine.Random.Range(1, maxCombinations);
+        for (var i = 0; i < Combinations; i++)
         {
-            int randomIndex = UnityEngine.Random.Range(0, vegetableList.Length);
-            if (!randomIndices.Contains(randomIndex)) randomIndices[i] = randomIndex;
+            var randomIndex = UnityEngine.Random.Range(0, vegetableList.Length);
+            if (!randomIndices.Contains(randomIndex)) randomIndices.Add(randomIndex);
         }
 
-        for (int j = 0; j < randomIndices.Length; j++)
+        foreach (var index in randomIndices)
         {
-            salad;
+            salad.Append(vegetableList[index].name);
+            vegetableSpritesist.Add(vegetableList[index].image);
         }
 
         return salad;
     }
 
-    bool verifySalad(string[] requestedSalad, string[] servedSalad)
+    public List<Sprite> GetSaladSprites()
     {
-        
+        return vegetableSpritesist;
+    }
+
+    public bool VerifySalad(StringBuilder requestedSalad, StringBuilder servedSalad)
+    {
+        return requestedSalad.Equals(servedSalad);
     }
 }

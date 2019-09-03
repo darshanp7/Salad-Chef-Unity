@@ -1012,6 +1012,7 @@ GameObject:
   - component: {fileID: 456387767}
   - component: {fileID: 456387768}
   - component: {fileID: 456387769}
+  - component: {fileID: 456387771}
   - component: {fileID: 456387770}
   m_Layer: 0
   m_Name: player-red
@@ -1131,6 +1132,8 @@ MonoBehaviour:
   - {fileID: 1511263964}
   choppingIndicator: {fileID: 1940027558}
   carryingCapacity: 2
+  choppingTime: 0
+  timeRemaining: 0
 --- !u!50 &456387770
 Rigidbody2D:
   serializedVersion: 4
@@ -1152,6 +1155,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &456387771
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456387764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df05293c525407f49a1fa7d18168bfc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vegetableList: []
+  vegetableSpritesist: []
+  maxCombinations: 0
 --- !u!1 &476916263
 GameObject:
   m_ObjectHideFlags: 0
@@ -4949,6 +4967,7 @@ GameObject:
   - component: {fileID: 1735844816}
   - component: {fileID: 1735844819}
   - component: {fileID: 1735844817}
+  - component: {fileID: 1735844820}
   - component: {fileID: 1735844818}
   m_Layer: 0
   m_Name: player-green
@@ -5055,6 +5074,8 @@ MonoBehaviour:
   - {fileID: 795723681}
   choppingIndicator: {fileID: 1464247693}
   carryingCapacity: 2
+  choppingTime: 0
+  timeRemaining: 0
 --- !u!50 &1735844818
 Rigidbody2D:
   serializedVersion: 4
@@ -5089,6 +5110,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
+--- !u!114 &1735844820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1735844813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df05293c525407f49a1fa7d18168bfc7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vegetableList: []
+  vegetableSpritesist: []
+  maxCombinations: 0
 --- !u!1001 &1766772144
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5298,6 +5334,55 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1817109324}
   m_CullTransparentMesh: 0
+--- !u!1 &1887436647
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887436649}
+  - component: {fileID: 1887436650}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1887436649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887436647}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.8881731, y: 4.024249, z: 44.0625}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 13
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1887436650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887436647}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540bcde2622f1d94fad15331276bb8b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  customerPrefab: {fileID: 362036105795685117, guid: d4727200863cd8a499d4d6e021e20a0d,
+    type: 3}
+  noOfCustomers: 5
+  startXOffset: -30
+  space: 15
+  delayBetweenCustomers: 1.5
 --- !u!1 &1940027558 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1878949618355294, guid: 8c2e629ac6deda844a25d8051cac8c5e,
