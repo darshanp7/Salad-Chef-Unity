@@ -22,7 +22,8 @@ public class VegetableArea : MonoBehaviour
         {
             player = other.gameObject.GetComponent<Player>();
             player.canPickUpVegetable = true;
-            player.vegetableAvailable.Add(this.vegetableName, this.vegetableSprite);
+            player.vegetableAvailable.itemName = vegetableName;
+            player.vegetableAvailable.itemImage = vegetableSprite;
         }
     }
 
@@ -31,7 +32,8 @@ public class VegetableArea : MonoBehaviour
         if (player?.gameObject == other.gameObject)
         {
             player.canPickUpVegetable = false;
-            player.vegetableAvailable.Clear();
+            player.vegetableAvailable.itemName = null;
+            player.vegetableAvailable.itemImage = null;
             player = null;
         }
     }

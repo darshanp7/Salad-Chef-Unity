@@ -7,8 +7,12 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
     [SerializeField] [Range(1, 2)] int playerId;
-    public Image[] itemsHud;
+    public List<Image> itemsHud;
     public GameObject choppingIndicator;
+    public GameObject plate;
+    public GameObject chopBoard;
+    public Image plateSprite;
+    public Image chopSprite;
     public int carryingCapacity = 2;
     public float choppingTime;
     public float timeRemaining;
@@ -18,9 +22,11 @@ public class Player : MonoBehaviour
     internal string interactAxis;
     internal string chopAxis;
     private bool isAxisInUse = false;
-    
-    internal Stack<Dictionary<string, Sprite>> itemsCarrying;
-    internal Dictionary<string, Sprite> vegetableAvailable;
+
+    internal Plates myPlate;
+    internal ChoppingBoard myChopBoard;
+    internal Stack<Item> itemsCarrying;
+    internal Item vegetableAvailable;
     internal bool canChop;
     internal bool canPlaceOnPlate;
     internal bool canPickUpFromPlate;
@@ -48,8 +54,10 @@ public class Player : MonoBehaviour
                 chopAxis = "PlayerTwoChop";
                 break;
         }
-        vegetableAvailable = new Dictionary<string, Sprite>();
-        itemsCarrying = new Stack<Dictionary<string, Sprite>>();
+        vegetableAvailable = new Item();
+        itemsCarrying = new Stack<Item>();
+        myPlate = plate.GetComponent<Plates>();
+        myChopBoard = chopBoard.GetComponent<ChoppingBoard>();
     }
 
     public bool GetAxisDown(string inputAxis)
