@@ -18,7 +18,6 @@ public class Chef : Player
             itemsCarrying.Push(item);
             for (int i = 0; i < itemsCarrying.Count; i++)
             {
-                Debug.Log(itemsHud[i].sprite);
                 if (itemsHud[i].sprite == null) 
                 { 
                     itemsHud[i].sprite = vegetableAvailable.itemImage; 
@@ -37,13 +36,12 @@ public class Chef : Player
             myPlate.itemOnPlate = item;
             plateSprite.sprite = item.itemImage;
             plateSprite.color = new Color(1,1,1,1);
-            Debug.Log(itemsHud.Count);
             for (int i = itemsHud.Count - 1; i >= 0; i--)
             {
                 if (itemsHud[i].sprite != null)
                 {
-                    itemsHud[i].sprite = null;
                     itemsHud[i].color = new Color(1,1,1,0);
+                    itemsHud[i].sprite = null;
                     return;
                 }
             }
@@ -54,14 +52,38 @@ public class Chef : Player
     {
         if (GetAxisDown(interactAxis) && itemsCarrying.Count < 2 && myPlate.vegsOnPlate > 0)
         {
+            Debug.Log("Picking up Vegetable from the plate.......");
             myPlate.vegsOnPlate -= 1;
             itemsCarrying.Push(myPlate.itemOnPlate);
-            
-            
+
+            Debug.Log("items Hud count " + itemsHud.Count);
+            int indexToAddItem = 0;
+            for (int i = 0; i < itemsHud.Count; i++)
+            {
+                if (itemsHud[i].sprite == null)
+                {
+                    indexToAddItem = i;
+                    break;
+                }
+            }
+            itemsHud[indexToAddItem].sprite = myPlate.itemOnPlate.itemImage;
+            itemsHud[indexToAddItem].color = new Color(1,1,1,1);
             
             plateSprite.sprite = null;
             plateSprite.color = new Color(1,1,1,0);
             myPlate.itemOnPlate = null;
+        }
+        else
+        {
+                Debug.Log("Cannot Pick up " + itemsCarrying.Count + " " + myPlate.vegsOnPlate);
+        }
+    }
+
+    void StartChopping()
+    {
+        if (GetAxisDown(interactAxis) && itemsCarrying.Count > 0)
+        {
+            
         }
     }
 
@@ -81,7 +103,11 @@ public class Chef : Player
         {
             PickUpFromPlate();
         }
-        
+
+        if (canChop)
+        {
+            StartChopping();
+        }
     }
 
     

@@ -54,6 +54,7 @@ public class Player : MonoBehaviour
                 chopAxis = "PlayerTwoChop";
                 break;
         }
+        choppingIndicator.gameObject.SetActive(false);
         vegetableAvailable = new Item();
         itemsCarrying = new Stack<Item>();
         myPlate = plate.GetComponent<Plates>();

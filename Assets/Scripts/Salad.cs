@@ -10,7 +10,7 @@ using Random = System.Random;
 public class Salad : MonoBehaviour
 {
     public Vegetable[] vegetableList;
-    public List<Sprite> vegetableSpritesist;
+    public List<Sprite> vegetableSpriteList;
     public int Combinations { get; set; }
 
     [SerializeField] [Range(0, 3)] private int maxCombinations;
@@ -19,7 +19,7 @@ public class Salad : MonoBehaviour
     {
         List<int> randomIndices = new List<int>();
         StringBuilder salad = new StringBuilder();
-        vegetableSpritesist.Clear();
+        vegetableSpriteList.Clear();
         if (Combinations != 0) Combinations = 0;
         Combinations = UnityEngine.Random.Range(1, maxCombinations);
         for (var i = 0; i < Combinations; i++)
@@ -31,7 +31,7 @@ public class Salad : MonoBehaviour
         foreach (var index in randomIndices)
         {
             salad.Append(vegetableList[index].name);
-            vegetableSpritesist.Add(vegetableList[index].image);
+            vegetableSpriteList.Add(vegetableList[index].image);
         }
 
         return salad;
@@ -39,7 +39,7 @@ public class Salad : MonoBehaviour
 
     public List<Sprite> GetSaladSprites()
     {
-        return vegetableSpritesist;
+        return vegetableSpriteList;
     }
 
     public bool VerifySalad(StringBuilder requestedSalad, StringBuilder servedSalad)

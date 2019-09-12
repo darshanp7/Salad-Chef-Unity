@@ -11,7 +11,6 @@ public class Plates : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Plate entered");
         if (player == null)
         {
             player = other.gameObject.GetComponent<Player>();
@@ -22,6 +21,7 @@ public class Plates : MonoBehaviour
 
             if (vegsOnPlate > 0)
             {
+                Debug.Log("Can Pick up from Plate");
                 player.canPickUpFromPlate = true;
             }
         }
@@ -29,9 +29,9 @@ public class Plates : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Plate exited");
-        if (player.gameObject == other.gameObject)
+        if (player?.gameObject == other.gameObject)
         {
+            Debug.Log("Cannot Pickup From Plate");
             player.canPlaceOnPlate = false;
             player.canPickUpFromPlate = false;
             player = null;
