@@ -6,7 +6,7 @@ using UnityEngine;
 public class Movement : MonoBehaviour
 {
     public float speed;
-    private bool canMove;
+    internal bool canMove;
     private float vertical;
     private float horizontal;
     private Player player;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,20 +14,24 @@ public class Player : MonoBehaviour
     public GameObject chopBoard;
     public Image plateSprite;
     public Image chopSprite;
+    public Sprite saladSprite;
+    public Image mySaladImage;
     public int carryingCapacity = 2;
     public float choppingTime;
     public float timeRemaining;
     
     internal string hAxis;
     internal string yAxis;
-    internal string interactAxis;
-    internal string chopAxis;
+    internal KeyCode interactButton;
+    internal KeyCode chopButton;
     private bool isAxisInUse = false;
 
     internal Plates myPlate;
     internal ChoppingBoard myChopBoard;
+    internal Movement movementComponent;
     internal Stack<Item> itemsCarrying;
     internal Item vegetableAvailable;
+    internal StringBuilder mySalad;
     internal bool canChop;
     internal bool canPlaceOnPlate;
     internal bool canPickUpFromPlate;
@@ -44,17 +49,18 @@ public class Player : MonoBehaviour
             case 1:
                 hAxis = "PlayerOneH";
                 yAxis = "PlayerOneV";
-                interactAxis = "PlayerOneInteract";
-                chopAxis = "PlayerOneChop";
+                interactButton = KeyCode.E;
+                chopButton = KeyCode.Q;
                 break;
             case 2:
                 hAxis = "PlayerTwoH";
                 yAxis = "PlayerTwoV";
-                interactAxis = "PlayerTwoInteract";
-                chopAxis = "PlayerTwoChop";
+                interactButton = KeyCode.K;
+                chopButton = KeyCode.L;
                 break;
         }
         choppingIndicator.gameObject.SetActive(false);
+        movementComponent = GetComponent<Movement>();
         vegetableAvailable = new Item();
         itemsCarrying = new Stack<Item>();
         myPlate = plate.GetComponent<Plates>();

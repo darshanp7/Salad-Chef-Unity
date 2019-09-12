@@ -54,7 +54,7 @@ public class Customer : MonoBehaviour
     private void Update()
     {
 
-        if (progressBar.currentPercent > 99)
+        if (progressBar.currentPercent > 99.9)
         {
             gameManager.SpawnCustomer(this.id);
             Destroy(gameObject);

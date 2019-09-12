@@ -9,7 +9,7 @@ public class Chef : Player
 {
     void AddVegetable()
     {
-        if (GetAxisDown(interactAxis) && itemsCarrying.Count < carryingCapacity)
+        if (Input.GetKeyDown(interactButton) && itemsCarrying.Count < carryingCapacity)
         {
             Debug.Log("Adding Vegetable to HUD");
             Item item = new Item();
@@ -29,28 +29,33 @@ public class Chef : Player
 
     void PlaceVegOnPlate()
     {
-        if (GetAxisDown(interactAxis) && itemsCarrying.Count > 0 && myPlate.vegsOnPlate < 1)
+        if (Input.GetKeyDown(interactButton) && itemsCarrying.Count > 0 && myPlate.vegsOnPlate < 1)
         {
             myPlate.vegsOnPlate += 1;
             var item = itemsCarrying.Pop();
             myPlate.itemOnPlate = item;
             plateSprite.sprite = item.itemImage;
             plateSprite.color = new Color(1,1,1,1);
-            for (int i = itemsHud.Count - 1; i >= 0; i--)
+            RemoveItem();
+        }
+    }
+
+    private void RemoveItem()
+    {
+        for (int i = itemsHud.Count - 1; i >= 0; i--)
+        {
+            if (itemsHud[i].sprite != null)
             {
-                if (itemsHud[i].sprite != null)
-                {
-                    itemsHud[i].color = new Color(1,1,1,0);
-                    itemsHud[i].sprite = null;
-                    return;
-                }
+                itemsHud[i].color = new Color(1, 1, 1, 0);
+                itemsHud[i].sprite = null;
+                return;
             }
         }
     }
 
     void PickUpFromPlate()
     {
-        if (GetAxisDown(interactAxis) && itemsCarrying.Count < 2 && myPlate.vegsOnPlate > 0)
+        if (Input.GetKeyDown(interactButton) && itemsCarrying.Count < 2 && myPlate.vegsOnPlate > 0)
         {
             Debug.Log("Picking up Vegetable from the plate.......");
             myPlate.vegsOnPlate -= 1;
@@ -81,9 +86,38 @@ public class Chef : Player
 
     void StartChopping()
     {
-        if (GetAxisDown(interactAxis) && itemsCarrying.Count > 0)
+        if (Input.GetKeyDown(chopButton) && itemsCarrying.Count > 0)
         {
-            
+            StartCoroutine(ChoppingInProgress());
+        }
+    }
+
+    IEnumerator ChoppingInProgress()
+    {
+        movementComponent.canMove = false;
+        canChop = false;
+        choppingIndicator.gameObject.SetActive(true);
+        yield return new WaitForSeconds(choppingTime);
+        var item = itemsCarrying.Pop();
+        myChopBoard.AddToSalad(item.itemName);
+        RemoveItem();
+        if (chopSprite.sprite == null) chopSprite.sprite = saladSprite;
+        chopSprite.color = new Color(1,1,1,1);
+        choppingIndicator.gameObject.SetActive(false);
+        movementComponent.canMove = true;
+        canChop = true;
+    }
+
+    void PickUpSalad()
+    {
+        if (Input.GetKeyDown(interactButton))
+        {
+            Debug.Log("Picking Up Salad");
+            mySalad = myChopBoard.GetSalad();
+            chopSprite.sprite = null;
+            chopSprite.color = new Color(1,1,1,0);
+            mySaladImage.color = new Color(1,1,1,1);
+            hasSalad = true;
         }
     }
 
@@ -107,6 +141,11 @@ public class Chef : Player
         if (canChop)
         {
             StartChopping();
+        }
+
+        if (canPickUpSalad)
+        {
+            PickUpSalad();
         }
     }
 

@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 
 public class ChoppingBoard : MonoBehaviour
 {
     private Player player;
-    public Vegetable[] saladOnBoard;
+    public StringBuilder saladOnBoard;
     
     private void Start()
     {
-        
+        saladOnBoard = new StringBuilder();
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -22,6 +23,11 @@ public class ChoppingBoard : MonoBehaviour
             if (player.itemsCarrying.Count > 0)
             {
                 player.canChop = true;
+            }
+
+            if (saladOnBoard.Length > 0 && player.itemsCarrying.Count == 0)
+            {
+                player.canPickUpSalad = true;
             }
         }
     }
@@ -35,5 +41,14 @@ public class ChoppingBoard : MonoBehaviour
             player.canChop = false;
             player = null;
         }
+    }
+    public void AddToSalad(string vegetable)
+    {
+        saladOnBoard.Append(vegetable);
+    }
+
+    public StringBuilder GetSalad()
+    {
+        return saladOnBoard;
     }
 }
