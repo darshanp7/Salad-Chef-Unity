@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -16,7 +17,6 @@ public class ChoppingBoard : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Entered Chopping Area");
         if (player == null)
         {
             player = other.GetComponent<Player>();
@@ -34,7 +34,6 @@ public class ChoppingBoard : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Exited Chopping Area");
         if (other.gameObject == player?.gameObject)
         {
             player.canPickUpSalad = false;
@@ -50,5 +49,10 @@ public class ChoppingBoard : MonoBehaviour
     public StringBuilder GetSalad()
     {
         return saladOnBoard;
+    }
+
+    public void RemoveSaladFromChopBoard()
+    {
+        saladOnBoard.Clear();
     }
 }

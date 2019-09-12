@@ -21,6 +21,7 @@ public class Customer : MonoBehaviour
     
     void Start()
     {
+        
         gameManager = FindObjectOfType<GameManager>();
         progressBar = patienceBar.GetComponent<ProgressBar>();
         
@@ -51,6 +52,29 @@ public class Customer : MonoBehaviour
         }
     }
 
+    public void ValidateRecievedSalad(StringBuilder recievedSalad, int playerId)
+    {
+        Debug.Log("Ordered Salad is " + this.orderedSalad + " Recieved Salad is " + recievedSalad);
+        if (this.GetComponent<Salad>().VerifySalad(orderedSalad, recievedSalad))
+        {
+            CorrectSalad(playerId);
+        }
+        else
+        {
+            WrongSalad(playerId);
+        }
+    }
+
+    private void CorrectSalad(int playerId)
+    {
+        Debug.Log("Correct Salad Served by Player " + playerId);
+    }
+
+    private void WrongSalad(int playerId)
+    {
+        Debug.Log("Wrong Salad Served by Player " + playerId);
+    }
+
     private void Update()
     {
 
@@ -59,16 +83,6 @@ public class Customer : MonoBehaviour
             gameManager.SpawnCustomer(this.id);
             Destroy(gameObject);
         }
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
         
     }
 }

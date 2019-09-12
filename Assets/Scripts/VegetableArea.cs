@@ -17,7 +17,6 @@ public class VegetableArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Vegetable " + vegetableName + "other " + other.gameObject.name);
         if (player == null)
         {
             player = other.gameObject.GetComponent<Player>();

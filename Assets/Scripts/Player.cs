@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] [Range(1, 2)] int playerId;
+    [Range(1, 2)]public int playerId;
     public List<Image> itemsHud;
     public GameObject choppingIndicator;
     public GameObject plate;
@@ -29,7 +29,7 @@ public class Player : MonoBehaviour
     internal Plates myPlate;
     internal ChoppingBoard myChopBoard;
     internal Movement movementComponent;
-    internal Stack<Item> itemsCarrying;
+    internal Queue<Item> itemsCarrying;
     internal Item vegetableAvailable;
     internal StringBuilder mySalad;
     internal bool canChop;
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         choppingIndicator.gameObject.SetActive(false);
         movementComponent = GetComponent<Movement>();
         vegetableAvailable = new Item();
-        itemsCarrying = new Stack<Item>();
+        itemsCarrying = new Queue<Item>();
         myPlate = plate.GetComponent<Plates>();
         myChopBoard = chopBoard.GetComponent<ChoppingBoard>();
     }
