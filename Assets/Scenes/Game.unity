@@ -1217,6 +1217,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
+  bonusSpeedDuration: 5
 --- !u!114 &456387769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5349,6 +5350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1000
+  bonusSpeedDuration: 5
 --- !u!114 &1735844820
 MonoBehaviour:
   m_ObjectHideFlags: 0
