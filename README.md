@@ -1,6 +1,6 @@
 # Salad-Chef-Unity
 
-![Screenshot](https://imgur.com/a/c5woEFN)
+[Screenshot](https://imgur.com/a/c5woEFN)
  
 Player Controls:
 -----------------------------------
