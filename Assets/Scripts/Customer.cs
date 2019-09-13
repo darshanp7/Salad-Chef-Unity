@@ -12,16 +12,20 @@ public class Customer : MonoBehaviour
     public Image[] hudImages;
     public int id;
     
+    public int correctScore;
+    public int wrongScore;
+    
     private bool isAngry;
     private GameManager gameManager;
     private StringBuilder orderedSalad;
     private List<Sprite> orderedSprites;
     private int combinations;
     private ProgressBar progressBar;
-    
+    private List<Player> playersWhoMadeMeAngry;
+
     void Start()
     {
-        
+        playersWhoMadeMeAngry = new List<Player>();
         gameManager = FindObjectOfType<GameManager>();
         progressBar = patienceBar.GetComponent<ProgressBar>();
         
@@ -41,48 +45,85 @@ public class Customer : MonoBehaviour
     {
         switch (combinations)
         {
-            case 3: progressBar.speed = 1;
+            case 3: progressBar.speed = 1f;
                 break;
-            case 2: progressBar.speed = 3;
+            case 2: progressBar.speed = 2;
                 break;
-            case 1: progressBar.speed = 4;
+            case 1: progressBar.speed = 3.5f;
                 break;
             default: progressBar.speed = 2;
                 break;
         }
     }
 
-    public void ValidateRecievedSalad(StringBuilder recievedSalad, int playerId)
+    private void DecreasePatienceLevel()
     {
-        Debug.Log("Ordered Salad is " + this.orderedSalad + " Recieved Salad is " + recievedSalad);
+        progressBar.speed += 1;
+    }
+
+    public void ValidateRecievedSalad(StringBuilder recievedSalad, Player player)
+    {
         if (this.GetComponent<Salad>().VerifySalad(orderedSalad, recievedSalad))
         {
-            CorrectSalad(playerId);
+            CorrectSalad(player);
         }
         else
         {
-            WrongSalad(playerId);
+            WrongSalad(player);
         }
+
+        player.hasSalad = false;
+        player.mySalad = null;
+        player.mySaladImage.color = new Color(1, 1, 1, 0);
     }
 
-    private void CorrectSalad(int playerId)
+    private void CorrectSalad(Player player)
     {
-        Debug.Log("Correct Salad Served by Player " + playerId);
+        //increase score
+        if (progressBar.currentPercent < 70.0f)
+        {
+            //Spawn Pickup
+            gameManager.SpawnPickupFor(player.playerId);
+        }
+
+        player.Score += correctScore;
+        DestroyCustomer();
     }
 
-    private void WrongSalad(int playerId)
+    private void WrongSalad(Player player)
     {
-        Debug.Log("Wrong Salad Served by Player " + playerId);
+        //make customer angry, decrease patience
+        isAngry = true;
+        playersWhoMadeMeAngry.Add(player);
+        DecreasePatienceLevel();
+        //penalize the player
+        player.Score -= wrongScore;
+
     }
 
     private void Update()
     {
-
         if (progressBar.currentPercent > 99.9)
         {
-            gameManager.SpawnCustomer(this.id);
-            Destroy(gameObject);
+            //check if angry and decrease score
+            if (isAngry)
+            {
+                foreach (var player in playersWhoMadeMeAngry)
+                {
+                    player.Score -= (wrongScore * 2);
+                }
+            }
+            else
+            {
+                GameObject.FindWithTag("Player").GetComponent<Player>().Score -= 20;   
+            }
+            DestroyCustomer();
         }
-        
+    }
+
+    private void DestroyCustomer()
+    {
+        gameManager.SpawnCustomer(this.id);
+        Destroy(gameObject);
     }
 }

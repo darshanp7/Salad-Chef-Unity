@@ -25,10 +25,16 @@ public class ChoppingBoard : MonoBehaviour
                 player.canChop = true;
             }
 
-            if (saladOnBoard.Length > 0 && player.itemsCarrying.Count == 0)
-            {
-                player.canPickUpSalad = true;
-            }
+            
+        }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        if (saladOnBoard.Length > 0 && player.itemsCarrying.Count == 0)
+        {
+            Debug.Log("Can pick up Salad");
+            player.canPickUpSalad = true;
         }
     }
 

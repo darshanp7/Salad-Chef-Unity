@@ -14,8 +14,7 @@ public class CustomerPlate : MonoBehaviour
             var player = other.gameObject.GetComponent<Player>();
             if (player.hasSalad)
             {
-                Debug.Log("Player having " + player.mySalad);
-                this.gameObject.GetComponentInParent<Customer>().ValidateRecievedSalad(player.mySalad, player.playerId);
+                this.gameObject.GetComponentInParent<Customer>().ValidateRecievedSalad(player.mySalad, player);
             }
         }
 //        if (player == null && OnRecieveSalad != null)

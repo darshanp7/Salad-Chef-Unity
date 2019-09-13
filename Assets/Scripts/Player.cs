@@ -19,6 +19,8 @@ public class Player : MonoBehaviour
     public int carryingCapacity = 2;
     public float choppingTime;
     public float timeRemaining;
+    public Text scoreText;
+    public Text timeRemainingText;
     
     internal string hAxis;
     internal string yAxis;
@@ -40,8 +42,17 @@ public class Player : MonoBehaviour
     internal bool hasSalad;
     internal bool canGiveSalad;
     internal bool canThrowSalad;
-    
-    
+    private int score;
+    internal int Score
+    {
+        get => score;
+        set
+        {
+            score = value;
+            scoreText.text = score.ToString();
+        }
+    }
+
     private void Start()
     {
         switch (playerId)
@@ -65,25 +76,25 @@ public class Player : MonoBehaviour
         itemsCarrying = new Queue<Item>();
         myPlate = plate.GetComponent<Plates>();
         myChopBoard = chopBoard.GetComponent<ChoppingBoard>();
+        timeRemainingText.text = timeRemaining.ToString();
+        StartCoroutine(DepleteTime());
     }
-
-    public bool GetAxisDown(string inputAxis)
+    
+    IEnumerator DepleteTime()
     {
-        if (Input.GetAxisRaw(inputAxis) != 0)
-        {
-            if (isAxisInUse == false)
-            {
-                isAxisInUse = true;
-                return isAxisInUse;
-            }
-        }
+        yield return new WaitForSeconds(1);
 
-        if (Input.GetAxisRaw(inputAxis) == 0)
+        timeRemaining -= 1;
+        timeRemainingText.text = timeRemaining.ToString();
+        if (timeRemaining < 0.1)
         {
-            isAxisInUse = false;
-            return isAxisInUse;
+            movementComponent.canMove = false;
         }
+        else
+        {
 
-        return false;
+            StartCoroutine(DepleteTime());
+        }
     }
+
 }

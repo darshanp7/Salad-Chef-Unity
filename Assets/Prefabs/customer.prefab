@@ -567,6 +567,8 @@ MonoBehaviour:
   - {fileID: 1411155313}
   - {fileID: 253529959}
   id: 0
+  correctScore: 50
+  wrongScore: 10
 --- !u!61 &859830054
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ namespace Michsky.UI.ModernUIPack
         public bool isOn;
         public bool restart;
         [Range(0, 100)] public float currentPercent;
-        [Range(0, 100)] public int speed;
+        [Range(0, 100)] public float speed;
 
         [Header("SPECIFIED PERCENT")]
         public bool enableSpecified;

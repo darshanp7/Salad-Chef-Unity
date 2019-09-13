@@ -12,7 +12,6 @@ public class Chef : Player
     {
         if (Input.GetKeyDown(interactButton) && itemsCarrying.Count < carryingCapacity)
         {
-            Debug.Log("Adding Vegetable to HUD");
             Item item = new Item();
             item.itemImage = vegetableAvailable.itemImage;
             item.itemName = vegetableAvailable.itemName;
@@ -113,7 +112,6 @@ public class Chef : Player
         if (Input.GetKeyDown(interactButton))
         {
             mySalad = new StringBuilder(myChopBoard.GetSalad().ToString());
-            Debug.Log("Picked Up Salad is " + mySalad);
             myChopBoard.RemoveSaladFromChopBoard();
             chopSprite.sprite = null;
             chopSprite.color = new Color(1,1,1,0);
@@ -155,7 +153,7 @@ public class Chef : Player
             StartChopping();
         }
 
-        if (canPickUpSalad)
+        if (canPickUpSalad && !hasSalad)
         {
             PickUpSalad();
         }
