@@ -20,6 +20,6 @@ Movement Keys -> Arrow Buttons
 
 Up: Up, Down: Down, Left: Left, Right: Right
 
-Pick up item/Throw Item Key: E
+Pick up item/Throw Item Key: K
 
-Chop Vegetable Key: Q
+Chop Vegetable Key: L
